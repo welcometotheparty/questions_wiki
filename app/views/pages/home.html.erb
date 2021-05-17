@@ -1,2 +1,22 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<h1>Datarum</h1>
+<%=link_to 'Ask', new_question_path, class:"btn btn-primary" %>
+<h2>Top 5 questions</h2>
+
+<% @top_questions.each do |question| %>
+
+    <div class="card border-0" style="width: 43rem;">
+
+        <div class="itemText col mt-3" id="itemText">
+          <h5 id="itemTitle" style="text-align: center">
+            <%= link_to question.head, question %>
+          </h5>
+          <p class="card-text pl-2 pr-3" id="itemDesc" style="text-align: center">
+            <%= truncate question.body, length:40 %>
+          </p>
+        </div>
+      </div>
+
+
+<% end %>
+
+
