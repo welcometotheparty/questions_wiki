@@ -8,6 +8,8 @@ class QuestionsController < ApplicationController
 
   # GET /questions/1 or /questions/1.json
   def show
+    @answer_id = @question.id
+    @answers = Answer.where(question_id: @answer_id)
   end
 
   # GET /questions/new
@@ -21,15 +23,13 @@ class QuestionsController < ApplicationController
 
   # POST /questions or /questions.json
   def create
-    @question = Question.new(question_params)
+    @question = current_user.questions.new(question_params)
 
     respond_to do |format|
       if @question.save
         format.html { redirect_to @question, notice: "Question was successfully created." }
-        format.json { render :show, status: :created, location: @question }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @question.errors, status: :unprocessable_entity }
       end
     end
   end

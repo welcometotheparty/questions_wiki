@@ -1,22 +1,27 @@
 <h1>Datarum</h1>
-<%=link_to 'Ask', new_question_path, class:"btn btn-primary" %>
-<h2>Top 5 questions</h2>
 
-<% @top_questions.each do |question| %>
+<%=link_to 'Задать вопрос', new_question_path, class:"btn btn-primary" %>
 
-    <div class="card border-0" style="width: 43rem;">
+<h2>Топ 5 вопросов</h2>
 
-        <div class="itemText col mt-3" id="itemText">
-          <h5 id="itemTitle" style="text-align: center">
-            <%= link_to question.head, question %>
-          </h5>
-          <p class="card-text pl-2 pr-3" id="itemDesc" style="text-align: center">
-            <%= truncate question.body, length:40 %>
-          </p>
-        </div>
+<% if not @top_questions.empty? %>
+  <% @top_questions.each do |question| %>
+    <div class="card border-0">
+      <div class="col mt-3" >
+        <h5 style="text-align: center">
+          <%= link_to question.head, question %>
+        </h5>
+        <p class="card-text pl-2 pr-3" style="text-align: center">
+          <%= truncate question.body, length:40 %>
+        </p>
       </div>
-
-
+    </div>
+  <% end %>
+<% else %>
+  <p>Вопросов пока нет</p>
 <% end %>
+
+
+
 
 
