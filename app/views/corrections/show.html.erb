@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @correction.body %>
+</p>
+
+<p>
+  <strong>Is accepted:</strong>
+  <%= @correction.is_accepted %>
+</p>
+
+<%= link_to 'Edit', edit_correction_path(@correction) %> |
+<%= link_to 'Back', corrections_path %>

@@ -2,7 +2,7 @@
 
 <%=link_to 'Задать вопрос', new_question_path, class:"btn btn-primary" %>
 
-<h2>Топ 5 вопросов</h2>
+<h2>Последние 5 вопросов</h2>
 
 <% if not @top_questions.empty? %>
   <% @top_questions.each do |question| %>

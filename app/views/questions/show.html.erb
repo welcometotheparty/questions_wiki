@@ -1,17 +1,43 @@
 <p id="notice"><%= notice %></p>
 <%=link_to 'Задать вопрос', new_question_path, class:"btn btn-primary" %>
 
+#заголовок/текст вопроса
 <center>
   <h2><%= @question.head %></h2>
   <p><%= @question.body %></p>
-</center>
+
+
+
+#Итератор для презентации ответов и формы новой правки
+
+  <p>question_id = <%= @question.id %></p>
+  <% @answers.each do |n| %>
+    <p><%= n.body %> <%= link_to 'Предложить правку', '' %> </p>
+
+    <%= simple_form_for(Correction.new) do |f| %>
+      <%= f.error_notification %>
+      <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+      <div class="form-inputs">
+        <%= f.input :body, label: false %>
+      </div>
+
+      <div class="form-actions">
+        <%= f.button :submit %>
+      </div>
+    <% end %>
+
+  <% end %>
+
+
+#форма нового ответа
 
 <%= simple_form_for(Answer.new) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="form-inputs">
-    <%= f.input :body, :label => "Заголовок вопроса", :input_html => {:style=> 'width: 200px'}%> %>
+    <%= f.input :body, :label => "Заголовок ответа", :input_html => {:style=> 'width: 200px'}%>
   </div>
 
   <%= f.hidden_field :question_id, value: @question.id %>
@@ -21,16 +47,7 @@
   </div>
 <% end %>
 
-<center>
-  <p>Это квешн айди <%= @question.id %></p>
-  <% @answers.each do |n| %>
-    <p><%= n.body %></p>
-  <% end %>
 </center>
-
-
-
-
 
 <%= link_to 'Edit', edit_question_path(@question) %> |
 <%= link_to 'Back', questions_path %>

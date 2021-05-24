@@ -11,12 +11,12 @@ user = User.create!  :email => 'qqq@mail.ru', :password => '123456', :password_c
 
 rng = 1..6
 rng.each do |n|
-  Question.create! :user_id => 1, :head => "question number #{n}" , :body => 'text text text'
+  Question.create! :user_id => 1, :head => "Вопрос номер #{n}" , :body => 'Описание вопроса'
 end
 
 rng.each do |n|
   rng.each do |z|
-    Answer.create! :body => "Answer num #{z}", :question_id => n, :user_id => 1
+    Answer.create! :body => "Ответ номер #{z}", :question_id => n, :user_id => 1
   end
 end
 
