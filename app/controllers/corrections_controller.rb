@@ -60,6 +60,7 @@ class CorrectionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def correction_params
-      params.require(:correction).permit(:body, :is_accepted, :question_id, :answer_id)
+      params.require(:correction).permit(:body, :is_accepted)
+
     end
 end
