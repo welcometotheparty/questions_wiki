@@ -1,34 +1,19 @@
 <p id="notice"><%= notice %></p>
 <%=link_to 'Задать вопрос', new_question_path, class:"btn btn-primary" %>
 
-#заголовок/текст вопроса
 <center>
   <h2><%= @question.head %></h2>
   <p><%= @question.body %></p>
 
-
-
-#Итератор для презентации ответов и формы новой правки
-
-  <p>question_id = <%= @question.id %></p>
-  <% @answers.each do |n| %>
-    <p><%= n.body %> <%= link_to 'Предложить правку', '' %> </p>
-
-    <%= simple_form_for(Correction.new) do |f| %>
-      <%= f.error_notification %>
-      <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-
-      <div class="form-inputs">
-        <%= f.input :body, label: false %>
-      </div>
-
-      <div class="form-actions">
-        <%= f.button :submit %>
-      </div>
+  <% @answers.each do |a| %>
+    <p>
+      <%= a.body %>
+    </p>
+    <% @corrections = Correction.where(answer_id: a.id, is_accepted: true) %>
+    <% @corrections.each do |c| %>
+      <p><%= c.body %></p>
     <% end %>
-
   <% end %>
-
 
 #форма нового ответа
 

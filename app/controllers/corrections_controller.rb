@@ -3,7 +3,7 @@ class CorrectionsController < ApplicationController
 
   # GET /corrections or /corrections.json
   def index
-    @corrections = Correction.all
+    @corrections = Correction.where(answer_id: params[:answer_id])
   end
 
   # GET /corrections/1 or /corrections/1.json
@@ -13,6 +13,7 @@ class CorrectionsController < ApplicationController
   # GET /corrections/new
   def new
     @correction = Correction.new
+    @answer = Answer.find_by(id: params[:answer_id])
   end
 
   # GET /corrections/1/edit
@@ -22,26 +23,24 @@ class CorrectionsController < ApplicationController
   # POST /corrections or /corrections.json
   def create
     @correction = current_user.corrections.new(correction_params)
-
-    respond_to do |format|
       if @correction.save
-        format.html { redirect_to @correction, notice: "Correction was successfully created." }
+          redirect_to @correction, notice: "Correction was successfully created."
       else
-        format.html { render :new, status: :unprocessable_entity }
+          render :new, status: :unprocessable_entity
       end
-    end
   end
+
 
   # PATCH/PUT /corrections/1 or /corrections/1.json
   def update
-    respond_to do |format|
+
       if @correction.update(correction_params)
-        format.html { redirect_to @correction, notice: "Correction was successfully updated." }
+        redirect_to @correction, notice: "Correction was successfully updated."
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        render :edit, status: :unprocessable_entity
       end
-    end
   end
+
 
   # DELETE /corrections/1 or /corrections/1.json
   def destroy
@@ -60,7 +59,7 @@ class CorrectionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def correction_params
-      params.require(:correction).permit(:body, :is_accepted)
+      params.require(:correction).permit(:body, :is_accepted, :question_id, :answer_id)
 
     end
 end
